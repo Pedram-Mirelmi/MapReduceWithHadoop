@@ -12,7 +12,7 @@ import org.apache.hadoop.mapreduce.lib.join.CompositeInputFormat;
 import org.apache.hadoop.mapreduce.lib.join.TupleWritable;
 import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
 
-public class MapSidePartitionedJoin {
+public class Joiner {
 
     public static class JoinMapper
             extends Mapper<LongWritable, TupleWritable, NullWritable, Text> {
@@ -44,7 +44,7 @@ public class MapSidePartitionedJoin {
         conf.set("mapreduce.join.expr", expr);
 
         Job job = Job.getInstance(conf, "Map-side join: customer ⨝ orders");
-        job.setJarByClass(MapSidePartitionedJoin.class);
+        job.setJarByClass(Joiner.class);
 
         job.setInputFormatClass(CompositeInputFormat.class);
         job.setMapperClass(JoinMapper.class);
